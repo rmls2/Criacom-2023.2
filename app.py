@@ -21,7 +21,7 @@ def main():
     
 
         TEXT_PROMPT = text
-        YOUR_API_KEY = '1a0dedf4a23ed1c317f26d256369383a75ddb850aa923fd67d0cfd36751b2ea62d6575828c5d3abcacab570e0cbeda95'
+        YOUR_API_KEY = ''
 
 
         r = requests.post('https://clipdrop-api.co/text-to-image/v1',
