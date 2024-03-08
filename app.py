@@ -5,26 +5,28 @@ import time
 from api_keys import YOUR_API_KEY
 from gemini import generate_history
 
+
+descricao_paragrafo = []
+
 def main():
     st.title("Criacom.AI")
     st.write("criatividade e acessibilidade (shoraste?)!")
     # Caixa de texto
-    _input = st.text_input("descrição da imagem:")
+    _input = st.text_input("escreva a história que deseja gerar:")
     with open('inputusuario.txt', 'w') as f:
             f.write(_input)
     
     if _input:
         generate_history()
         
-    count_paragrafo = 1
-    if st.button("Gerar imagens"):
-        
+        count_paragrafo = 1        
         with open('./historia_gemini.txt', 'r') as historia:
             for paragrafo in historia:
                 TEXT_PROMPT = paragrafo.strip()
-                
+
                 if paragrafo.strip() != '':
 
+                    descricao_paragrafo.append(paragrafo.strip())
                     r = requests.post('https://clipdrop-api.co/text-to-image/v1',
                     files = {
                     'prompt': (None, TEXT_PROMPT, 'text/plain')
@@ -39,23 +41,28 @@ def main():
                         count_paragrafo+=1
                     else:
                         r.raise_for_status()
-                    time.sleep(0.05)
-            
+                
 
-    #Diretório onde a imagem está localizada
-    image_dir = "images"
-    image_files = [f for f in os.listdir(image_dir) if os.path.isfile(os.path.join(image_dir, f))]
+        #Diretório onde a imagem está localizada
+        #image_dir = "images"
+        #image_files = [f for f in os.listdir(image_dir) if os.path.isfile(os.path.join(image_dir, f))]
 
-    #on = st.toggle('exibir imagens geradas')
+        col1, col2, col3 = st.columns(3)
 
-    #show_images = st.checkbox('Exibir imagens')
+        with col1:
+            st.header("Paragrafo 1")
+            st.image("./images/image_1.jpg")
+            st.write(descricao_paragrafo[0])
+        with col2:
+            st.header("Paragrafo 2")
+            st.image("./images/image_2.jpg")
+            st.write(descricao_paragrafo[1])
 
-    for image_file in image_files:
-        image_path = os.path.join(image_dir, image_file)
-        st.image(image_path, caption=image_file, use_column_width=True)
-    if st.button('exibir história'):
-        with open('./historia_gemini.txt', 'r') as hist:
-            st.write(hist.read())
+        with col3:
+            st.header("Paragrafo 3")
+            st.image("./images/image_3.jpg")
+            st.write(descricao_paragrafo[2])
+
 
 if __name__ == "__main__":
     main()

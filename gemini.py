@@ -17,10 +17,15 @@ def generate_history():
     with open('./inputusuario.txt', 'r') as input_:
         TEXT_PROMPT = input_.read()
 
-    response = model.generate_content(TEXT_PROMPT)
+    X = 'Crie essa história usando três parágrafo. Para cada parágrafo descreva quem é o personagem principal e qual sua característica físicas principal e as característica do ambiente em que ele está inserido.'
+    y = TEXT_PROMPT + X
+    response = model.generate_content(y)
     #print(response.text)
 
     with open('./historia_gemini.txt', 'w') as f:
         f.write(response.text)
 
-    return f
+    return
+
+generate_history() 
+
