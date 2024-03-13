@@ -17,9 +17,8 @@ def generate_history(GOOGLE_API_KEY, qtd_imagens):
     with open('./inputusuario.txt', 'r') as input_:
         TEXT = input_.read()
 
-    POSPROMPT = f"""Esta história precisa ser contada em {qtd_imagens} parágrafos. Em cada parágrafo mencione o personagem principal,
-     descreva quem ele é e descreva o ambiente em que está localizado. 
-     É essencial que a história seja coesa e coerente."""
+    POSPROMPT = f"""Esta história precisa ser contada em {qtd_imagens} parágrafos e cada parágrafo precisa ter no máximo 100 caracteres. 
+                    É essencial que a história seja coesa e coerente."""
     TEX_PROMPT = TEXT + POSPROMPT
     response = model.generate_content(TEX_PROMPT)
     #print(response.text)
