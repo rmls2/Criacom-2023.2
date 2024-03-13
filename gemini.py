@@ -4,7 +4,7 @@ import google.generativeai as genai
 from IPython.display import display
 from IPython.display import Markdown
 
-def generate_history(GOOGLE_API_KEY, qtd_imagens):
+def generate_history(GOOGLE_API_KEY, qtd_imagens, user_input):
 
     genai.configure(api_key=GOOGLE_API_KEY)
 
@@ -14,12 +14,9 @@ def generate_history(GOOGLE_API_KEY, qtd_imagens):
 
     model = genai.GenerativeModel('gemini-pro')
 
-    with open('./inputusuario.txt', 'r') as input_:
-        TEXT = input_.read()
-
     POSPROMPT = f"""Esta história precisa ser contada em {qtd_imagens} parágrafos e cada parágrafo precisa ter no máximo 100 caracteres. 
                     É essencial que a história seja coesa e coerente."""
-    TEX_PROMPT = TEXT + POSPROMPT
+    TEX_PROMPT = user_input + POSPROMPT
     response = model.generate_content(TEX_PROMPT)
     #print(response.text)
 
@@ -30,6 +27,7 @@ def generate_history(GOOGLE_API_KEY, qtd_imagens):
 
 
 def translate_history(GOOGLE_API_KEY):
+
     genai.configure(api_key=GOOGLE_API_KEY)
     model = genai.GenerativeModel('gemini-pro')
 
@@ -43,3 +41,19 @@ def translate_history(GOOGLE_API_KEY):
     return 
 
 
+def translate_inputs(estilo, personagem):
+    l = []
+    genai.configure(api_key=GOOGLE_API_KEY)
+    model = genai.GenerativeModel('gemini-pro')
+
+    response = model.generate_content(f'traduza para o inglês as seguintes palavras: {estilo}\n{personagem}')
+
+    l = response.text.split('\n')
+    l2 = list(map(str.lower, l))
+    
+    return l2
+
+
+x = translate_inputs('motocicleta', 'maçã')
+print(type(x))
+print(x[0])
