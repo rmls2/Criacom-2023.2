@@ -4,7 +4,7 @@ import google.generativeai as genai
 from IPython.display import display
 from IPython.display import Markdown
 
-def generate_history():
+def generate_history(GOOGLE_API_KEY):
 
     genai.configure(api_key=GOOGLE_API_KEY)
 
@@ -15,13 +15,13 @@ def generate_history():
     model = genai.GenerativeModel('gemini-pro')
 
     with open('./inputusuario.txt', 'r') as input_:
-        TEXT_PROMPT = input_.read()
+        TEXT = input_.read()
 
-    X = """This story needs to be told in three paragraphs. Name the main character, 
-    describe who he is and describe the environment in which he is located. 
-    It is essential that the story is cohesive and coherent."""
-    y = TEXT_PROMPT + X
-    response = model.generate_content(y)
+    POSPROMPT = """Esta história precisa ser contada em três parágrafos. Em cada parágrafo mencione o personagem principal,
+     descreva quem ele é e descreva o ambiente em que está localizado. 
+     É essencial que a história seja coesa e coerente."""
+    TEX_PROMPT = TEXT + POSPROMPT
+    response = model.generate_content(TEX_PROMPT)
     #print(response.text)
 
     with open('./historia_gemini.txt', 'w') as f:
@@ -30,14 +30,14 @@ def generate_history():
     return
 
 
-def translate_history():
+def translate_history(GOOGLE_API_KEY):
     genai.configure(api_key=GOOGLE_API_KEY)
     model = genai.GenerativeModel('gemini-pro')
 
     with open('./historia_gemini.txt', 'r') as history:
-        TEXT_PROMPT = history.read()
+        TEXT = history.read()
 
-        response = model.generate_content(f'traduza o seguinte texto: {TEXT_PROMPT}')
+        response = model.generate_content(f'traduza para o inglês o seguinte texto: {TEXT}')
 
     with open('./historia_traduzida.txt', 'w') as f:
         f.write(response.text)

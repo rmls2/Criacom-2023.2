@@ -6,7 +6,6 @@ placeholder = st.empty()
 # Replace the placeholder with some text:
 placeholder.text("Hello")
 
-time.sleep(3)
 # Replace the text with a chart:
 placeholder.line_chart({"data": [1, 5, 2, 6]})
 
@@ -18,3 +17,17 @@ with placeholder.container():
 time.sleep(3)
 # Clear all those elements:
 placeholder.empty()
+
+
+# Using object notation
+add_selectbox = st.sidebar.selectbox(
+    "How would you like to be contacted?",
+    ("Email", "Home phone", "Mobile phone")
+)
+
+# Using "with" notation
+with st.sidebar:
+    add_radio = st.radio(
+        "Choose a shipping method",
+        ("Standard (5-15 days)", "Express (2-5 days)")
+    )
