@@ -4,7 +4,7 @@ import google.generativeai as genai
 from IPython.display import display
 from IPython.display import Markdown
 
-def generate_history(GOOGLE_API_KEY):
+def generate_history(GOOGLE_API_KEY, qtd_imagens):
 
     genai.configure(api_key=GOOGLE_API_KEY)
 
@@ -17,7 +17,7 @@ def generate_history(GOOGLE_API_KEY):
     with open('./inputusuario.txt', 'r') as input_:
         TEXT = input_.read()
 
-    POSPROMPT = """Esta história precisa ser contada em três parágrafos. Em cada parágrafo mencione o personagem principal,
+    POSPROMPT = f"""Esta história precisa ser contada em {qtd_imagens} parágrafos. Em cada parágrafo mencione o personagem principal,
      descreva quem ele é e descreva o ambiente em que está localizado. 
      É essencial que a história seja coesa e coerente."""
     TEX_PROMPT = TEXT + POSPROMPT
