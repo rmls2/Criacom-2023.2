@@ -3,7 +3,7 @@ import os
 import requests
 import time 
 from api_keys import YOUR_API_KEY
-from gemini import generate_history, translate_history
+from gemini import generate_history, translate_history, translate_inputs
 import time
 
 descricao_paragrafo = []
@@ -34,22 +34,20 @@ def main():
     descricao_personagem = st.text_input("Descreva o que é ou quem é seu personagem principal")
     descricao_personagem_principal = descricao_personagem
 
-    with open('inputusuario.txt', 'w') as f:
-            f.write(_input)
+    user_input = _input
     submit_button = st.button('submeter história') 
 
     if submit_button:
 
-        generate_history(gemini_key, qtd_imagens)
+        generate_history(gemini_key, qtd_imagens, user_input)
         translate_history(gemini_key)
 
         count_paragrafo = 1        
         with open('./historia_traduzida.txt', 'r') as historia:
             for paragrafo in historia:
                 TEXT_PROMPT = paragrafo.strip()
-                ESTILO = estilo
-                PERSONAGEM = descricao_personagem_principal
-                PRE_PROMPT = f'generate an image about {PERSONAGEM} in the {ESTILO} style and use the following scenario as a basis: '
+                t = translate_inputs(estilo=estilo, personagem=descricao_personagem_principal)
+                PRE_PROMPT = f'generate an image about {t[1]} in the {t[0]} style and use the following scenario as a basis: '
                 PROMPT = PRE_PROMPT + TEXT_PROMPT 
  
                 if paragrafo.strip() != '':
