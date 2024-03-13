@@ -1,4 +1,4 @@
-import streamlit as st
+""" import streamlit as st
 import time
 
 placeholder = st.empty()
@@ -31,3 +31,27 @@ with st.sidebar:
         "Choose a shipping method",
         ("Standard (5-15 days)", "Express (2-5 days)")
     )
+
+
+ """
+
+
+from elevenlabs import play, save
+from elevenlabs.client import ElevenLabs
+
+client = ElevenLabs(
+  api_key="f5fd5ed78d745f4ab6ca714fc4546a79"
+)
+
+audio = client.generate(
+  text="vocês estão preparados para amanhã? Graças a deus acabou essa porra!.",
+  voice="Rachel",
+  model="eleven_multilingual_v2"
+)
+
+# Converta o gerador em bytes concatenando-o
+audio_bytes = b"".join(audio)
+
+#play(audio_bytes)
+save(audio_bytes, './audios_elevenlabs/teste_grupo.mp3')
+
