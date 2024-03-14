@@ -43,5 +43,4 @@ streamlit run app.py
 
 o servidor stramlit será iniciado o projeto rodará localmente
 
-![image](/home/robert/repositorios/Criacom-2023.2/image.png)
 
