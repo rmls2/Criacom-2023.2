@@ -41,6 +41,17 @@ dentro do ambiente virtual coloque o comando:
 streamlit run app.py
 ```
 
-o servidor stramlit será iniciado o projeto rodará localmente
+o servidor stramlit será iniciado o projeto rodará localmente. Ao acessar o link da aplicação, uma tela parecida com essa será exibida para você.
 
 
+![image](https://github.com/rmls2/Criacom-2023.2/assets/93690581/c3f87d6f-42d9-4318-962c-75bf871fd74d)
+
+
+## API keys 
+
+no campo de API, você precisará gerar suas chaves. Abaixo está os sites dos modelos e lá você irá encontrar formas de gerar suas chaves.
+a API do clipdrop (gerador de imagem) disponibiliza 100 créditos (1 por imagem) gratuitamente e API do Gemini é ilimitada. 
+
+* https://clipdrop.co/apis/
+* https://aistudio.google.com/app/apikey
+* https://ai.google.dev/tutorials/python_quickstart
