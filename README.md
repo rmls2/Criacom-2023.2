@@ -44,7 +44,7 @@ streamlit run app.py
 o servidor stramlit será iniciado o projeto rodará localmente. Ao acessar o link da aplicação, uma tela parecida com essa será exibida para você.
 
 
-![image](https://github.com/rmls2/Criacom-2023.2/assets/93690581/c3f87d6f-42d9-4318-962c-75bf871fd74d)
+![image](https://github.com/rmls2/Criacom-2023.2/assets/93690581/5176a957-5b01-4607-9090-55210ca5550b)
 
 
 ## API keys 
