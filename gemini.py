@@ -41,9 +41,9 @@ def translate_history(GOOGLE_API_KEY):
     return 
 
 
-def translate_inputs(estilo, personagem):
+def translate_inputs(estilo, personagem, api_key):
     l = []
-    genai.configure(api_key=GOOGLE_API_KEY)
+    genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-pro')
 
     response = model.generate_content(f'traduza para o inglês as seguintes palavras: {estilo}\n{personagem}')
