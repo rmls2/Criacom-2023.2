@@ -4,7 +4,7 @@ import requests
 import time 
 import time
 #from elevenlabs import play, save
-from elevenlabs.client import ElevenLabs
+#from elevenlabs.client import ElevenLabs
 import google.generativeai as genai
 
 descricao_paragrafo = []
