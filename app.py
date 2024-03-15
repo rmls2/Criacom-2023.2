@@ -3,8 +3,6 @@ import os
 import requests
 import time 
 import time
-#from elevenlabs import play, save
-#from elevenlabs.client import ElevenLabs
 import google.generativeai as genai
 
 descricao_paragrafo = []
@@ -12,7 +10,6 @@ qtd_imagens = 0
 
 def main():  
 
-    # Using "with" notation
     with st.sidebar:
         st.header("Chaves das API's")
         clipdrop_key = st.text_input('Chave da API Clipdrop', type="password")
