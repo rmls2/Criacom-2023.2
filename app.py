@@ -39,8 +39,8 @@ def main():
 
         generate_history(gemini_key, qtd_imagens, user_input)
         translate_history(gemini_key)
-
         count_paragrafo = 1        
+
         with open('./historia_traduzida.txt', 'r') as historia:
             for paragrafo in historia:
                 TEXT_PROMPT = paragrafo.strip()
@@ -48,9 +48,8 @@ def main():
                 PRE_PROMPT = f'generate an image about {t[1]} in the {t[0]} style and use the following scenario as a basis: '
                 PROMPT = PRE_PROMPT + TEXT_PROMPT 
  
-                if paragrafo.strip() != '':
+                if paragrafo.strip():
 
-                    descricao_paragrafo.append(TEXT_PROMPT)
                     r = requests.post('https://clipdrop-api.co/text-to-image/v1',
                     files = {
                     'prompt': (None, PROMPT, 'text/plain')
@@ -92,21 +91,6 @@ def ler_descricoes_de_arquivo(nome_arquivo):
         st.error(f"Erro ao ler o arquivo: {e}")
         return None
 
-# def create_voice_for_text_to_voice(x: list):
-#     for i in x:
-#         client = ElevenLabs(api_key="f5fd5ed78d745f4ab6ca714fc4546a79")
-
-#         audio = client.generate(
-#         text= x[i],
-#         voice="Rachel",
-#         model="eleven_multilingual_v2"
-#         )
-
-#         # Converta o gerador em bytes concatenando-o
-#         audio_bytes = b"".join(audio)
-
-#         #play(audio_bytes)
-#         save(audio_bytes, './audios_elevenlabs/part_' + str(x.index(i)) + '.mp3')
 
 def list_audio_files(folder_path):
     audio_files = [file for file in os.listdir(folder_path) if file.endswith(".mp3") or file.endswith(".wav")]
@@ -115,14 +99,11 @@ def list_audio_files(folder_path):
 def generate_history(GOOGLE_API_KEY, qtd_imagens, user_input):
 
     genai.configure(api_key=GOOGLE_API_KEY)
-
     model = genai.GenerativeModel('gemini-pro')
-
     POSPROMPT = f"""Esta história precisa ser contada em {qtd_imagens} parágrafos e cada parágrafo precisa ter no máximo 100 caracteres. 
                     É essencial que a história seja coesa e coerente."""
     TEX_PROMPT = user_input + POSPROMPT
     response = model.generate_content(TEX_PROMPT)
-    #print(response.text)
 
     with open('./historia_gemini.txt', 'w') as f:
         f.write(response.text)
@@ -137,21 +118,19 @@ def translate_history(GOOGLE_API_KEY):
 
     with open('./historia_gemini.txt', 'r') as history:
         TEXT = history.read()
-
         response = model.generate_content(f'traduza para o inglês o seguinte texto: {TEXT}')
 
     with open('./historia_traduzida.txt', 'w') as f:
         f.write(response.text)
+
     return 
 
-
 def translate_inputs(estilo, personagem, api_key):
+
     l = []
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-pro')
-
     response = model.generate_content(f'traduza para o inglês as seguintes palavras: {estilo}\n{personagem}')
-
     l = response.text.split('\n')
     l2 = list(map(str.lower, l))
     
